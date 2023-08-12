@@ -222,6 +222,10 @@ const changePassword = asyncHandler(async(req,res) =>{
 
 });
 
+const forgotPassword = asyncHandler(async(req,res) =>{
+  res.send("FP")
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -229,5 +233,6 @@ module.exports = {
   getUser,
   loginStatus,
   updateUser,
-  changePassword
+  changePassword,
+  forgotPassword
 };
