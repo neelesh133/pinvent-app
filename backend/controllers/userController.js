@@ -50,7 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     const { _id, name, email, photo, phone, bio } = user;
-    res.status(201).json({
+    return res.status(201).json({
       _id,
       name,
       email,
@@ -100,7 +100,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && passwordIsCorrect) {
     const { _id, name, email, photo, phone, bio } = user;
-    res.status(200).json({
+    return res.status(200).json({
       _id,
       name,
       email,
@@ -115,4 +115,18 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, loginUser };
+//Logout User
+const logoutUser = asyncHandler(async(req,res)=> {
+  res.cookie("token", "", {
+    path: "/",
+    httpOnly: true,
+    expires: new Date(0), //expired
+    sameSite: "none", //this parameter will be exected on deployment(same site none means both frontend and backend deployed on different platforms)
+    secure: true, //this parameter will be exected on deployment
+  });
+
+  return res.status(200).json({message: "Successfully Logged Out"})
+
+})
+
+module.exports = { registerUser, loginUser, logoutUser };
