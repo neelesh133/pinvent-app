@@ -1,11 +1,11 @@
-const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
+const User = require("./userModel");
 
 const productSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "User",
+    ref: User ,
   },
 
   name:{

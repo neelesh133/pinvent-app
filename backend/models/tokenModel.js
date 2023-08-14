@@ -1,10 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const User = require('./userModel');
 
 const tokenSchema = mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User"
+        ref: User
     },
 
     token: {
