@@ -1,10 +1,9 @@
-const expressAsyncHandler = require("express-async-handler");
+const asyncHandler = require("express-async-handler");
 const Product = require("../models/productModel");
-const { upload, fileSizeFormatter } = require("../utils/fileUpload");
-Product;
+const { fileSizeFormatter } = require("../utils/fileUpload");
 const cloudinary = require("cloudinary").v2;
 
-const createProduct = expressAsyncHandler(async (req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
   const { name, sku, category, quantity, price, description } = req.body;
 
   //Validation
@@ -52,5 +51,8 @@ const createProduct = expressAsyncHandler(async (req, res) => {
 });
 
 //Get all Products
-// const getProducts = asyncHandler(async (req, res) => {});
-module.exports = { createProduct };
+const getProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({user: req.user._id}).sort("-createdAt")
+  res.status(200).json(products)
+});
+module.exports = { createProduct, getProducts };
